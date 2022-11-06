@@ -1,17 +1,15 @@
 //stack using array
 #include<stdio.h>
+#include<stdlib.h>
 int stack[10],top=-1;
 void pop();
 void push();
 void display();
-int isempty();
-int isfull();
 void main()
 {
 	int o;
-	char c;
-	do{
-		printf("\nSelect operation:\n\t1.Push\n\t2.Pop\n\t3.Display\n\t ");
+	while(1){
+		printf("\nMENU:-\n\t1.Push\n\t2.Pop\n\t3.Display\n\t4.Exit\nSelect operation: ");
 		scanf("%d",&o);
 		switch(o){
 			case 1:push();
@@ -20,32 +18,33 @@ void main()
 					break;
 			case 3:display();
 					break;
+			case 4:exit(0);
+					break;
 			default:printf("Invalid input!");
 		}
-	printf("\nDo you want to continue?(y/n) :");
-	scanf("%s",&c);
 	//printf("c=%c",c);
-	}while(c=='y');
+	}
 }
 void pop(){
-	if(isempty())
+	if(top==-1)
 		printf("Underflow!");
 	else{
 		printf("%d deleted",stack[top--]);
 	}
-	display();
+	
 }
 void push(){
-	if(isfull())
+	if(top==9)
 		printf("Overflow!");
 	else{
-		printf("\nEnter a number:");
+		printf("\nEnter data:");
 		scanf("%d",&stack[++top]);
 	}
-	display();
+	
 }
 void display(){
-	if(isempty())printf("No element in stack");
+	if(top==-1)
+		printf("No element in stack");
 	else{
 	printf("\nStack:");
 	for(int i=top;i>=0;--i)
@@ -53,16 +52,7 @@ void display(){
 	}
 
 }
-int isempty(){
-	if(top==-1)
-		return 1;
-	return 0;
-}	
-int isfull(){
-	if(top==9)
-		return 1;
-	return 0;
-}	
+
 			
 
 			

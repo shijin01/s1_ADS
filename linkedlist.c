@@ -6,78 +6,96 @@
 	}*head=NULL,*cur,*newnode;
 	int count();
 	int search(int);
-	void deleteatbeginning();
-	void deleteatend();
-	void deleterandom();
-	void creation(int data);
-	void insertatbeginning();
-	void insertatend();
-	void insertaftern();
+	void delete_at_beginning();
+	void delete_at_end();
+	void delete_at_pos();
+	void createnode(int data);
+	void createll();
+	void insert_at_beginning();
+	void insert_at_end();
+	void insert_at_pos();
 	void display();
 	void main(){
 		int choice1,data,choice2,s;
 		while(1){
-			printf("\nEnter Choice:-\n\t1.Insertion\n\t2.Deletion\n\t3.Display\n\t4.Count\n\t5.Search\n\t6.Exit\n:");
+			printf("\nMENU:-\n\t1.Create linked list\n\t2.Insertion\n\t3.Deletion\n\t4.Display\n\t5.Count\n\t6.Search\n\t7.Exit\nEnter Choice:");
 			scanf("%d",&choice1);
 			switch(choice1){
-				case 1:printf("Enter the data:");
+				case 1:createll();
+						break;
+				case 2:printf("Enter the data:");
 					scanf("%d",&data);
-					creation(data);
-					printf("\n\tEnter Choice:-\n\t\t1.Insert at begin\n\t\t2.Insert at end\n\t\t3.Insert after nth node\n:");
+					createnode(data);
+					printf("\n\tMENU.2:-\n\t\t1.Insert at begin\n\t\t2.Insert at end\n\t\t3.Insert after nth node\nEnter Choice:");
 					scanf("%d",&choice2);
 					switch(choice2){
-						case 1:insertatbeginning();
+						case 1:insert_at_beginning();
 							break;
-						case 2:insertatend();
+						case 2:insert_at_end();
 							break;
-						case 3:insertaftern();
+						case 3:insert_at_pos();
 							break;
 						default:printf("Invalid operation");
 					}
 					break;
-				case 2:printf("\n\tEnter Choice:-\n\t\t1.Deletion at begin\n\t\t2.Deletion at end\n\t\t3.Deletion at position\n:");
+				case 3:printf("\n\tMENU.3:-\n\t\t1.Deletion at begin\n\t\t2.Deletion at end\n\t\t3.Deletion at position\nEnter Choice:");
 					scanf("%d",&choice2);
 					switch(choice2){
-						case 1:deleteatbeginning();
+						case 1:delete_at_beginning();
 							break;
-						case 2:deleteatend();
+						case 2:delete_at_end();
 							break;
-						case 3:deleterandom();
+						case 3:delete_at_pos();
 							break;
 						default:printf("Invalid operation");
 					}
 					break;
-				case 3:display();
+				case 4:display();
 					break;
-				case 4:printf("\nNumber of elements:%d",count());
+				case 5:printf("\nNumber of elements:%d",count());
 					break;
-				case 5:printf("\nEnter the number to be search:");
+				case 6:printf("\nEnter the number to be search:");
 					scanf("%d",&s);
 					(search(s)>0)?printf("\n%d founded at position %d",s,search(s)):printf("%d not found!",s);
 					break;
-				case 6:exit(0);
+				case 7:exit(0);
 					break;
 				default:printf("Invalid operation");
 			}
 		}
 	}
-	void deleteatbeginning(){
+	void delete_at_beginning(){
 		struct node *t;
 		t=head;
-		head=head->next;
-		free(t);
+		if(head==NULL){
+			printf("Linked List is empty");
+		}
+		else{
+			head=head->next;
+			free(t);
+		}
+
 	}
-	void deleteatend(){
+	void delete_at_end(){
 		struct node *t,*pre;
-		for(cur=head;cur->next!=NULL;pre=cur,cur=cur->next);
-		t=cur;
-		pre->next=NULL;
-		free(t);
+		if(head==NULL){
+			printf("Linked List is empty");
+		}
+		else{
+			for(cur=head;cur->next!=NULL;pre=cur,cur=cur->next);
+			t=cur;
+			pre->next=NULL;
+			free(t);
+		}
 		
 	}
-	void deleterandom(){
+	void delete_at_pos(){
 		int pos,c,i;
 		struct node *pre,*t;
+		if(head==NULL){
+			printf("Linked List is empty");
+		}
+		else{
 		printf("\nEnter the position:");
 		scanf("%d",&pos);
 		c=count();
@@ -90,16 +108,17 @@
 			pre->next=cur->next;
 			free(t);
 		}
+		}
 
 
 
 	}
-	void creation(int data){
+	void createnode(int data){
 		newnode=(struct node*)malloc(sizeof(struct node));
 		newnode->data=data;
 		newnode->next=NULL;
 	}
-	void insertatbeginning(){
+	void insert_at_beginning(){
 		if(head==NULL){
 			newnode->next=NULL;
 			head=newnode;
@@ -110,7 +129,7 @@
 			head=newnode;
 		}
         }
-	void insertatend(){
+	void insert_at_end(){
 		for(cur=head;cur->next!=NULL;cur=cur->next);
 		cur->next=newnode;
 	}
@@ -124,7 +143,7 @@
 		for(i=0,cur=head;cur!=NULL;++i,cur=cur->next);
 		return i;
 	}
-	void insertaftern(){
+	void insert_at_pos(){
 		int pos,c,i;
 		struct node *pre;
 		printf("\nEnter the position:");
@@ -146,3 +165,24 @@
 				return i;
 		return 0;
 	}
+	void createll(){
+		int n,d,i;
+		printf("Enter the number of elements:");
+		scanf("%d",&n);
+		printf("Enter the elements:");
+		for(i=0;i<n;++i){
+			scanf("%d",&d);
+			createnode(d);
+			if(head==NULL){
+				newnode->next=NULL;
+				head=cur=newnode;
+			}
+			else{
+				cur->next=newnode;
+				cur=newnode;
+			}
+
+		}
+
+		}
+	

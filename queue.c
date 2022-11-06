@@ -1,17 +1,16 @@
 //Queue using array
 #include<stdio.h>
+#include<stdlib.h>
 int queue[10],front=-1,rear=-1;
 void enqueue();
 void dequeue();
 void display();
-int isempty();
-int isfull();
 void main()
 {
 	int o;
-	char c;
-	do{
-		printf("\nSelect operation:\n\t1.Enqueue\n\t2.Dequeue\n\t3.Display\n\t ");
+	
+	while(1){
+		printf("\nMENU:-\n\t1.Enqueue\n\t2.Dequeue\n\t3.Display\nSelect operation: ");
 		scanf("%d",&o);
 		switch(o){
 			case 1:enqueue();
@@ -20,15 +19,14 @@ void main()
 					break;
 			case 3:display();
 					break;
+			case 4:exit(0);
+					break;
 			default:printf("Invalid input!");
 		}
-	printf("\nDo you want to continue?(y/n) :");
-	scanf("%s",&c);
-	//printf("c=%c",c);
-	}while(c=='y');
+	}
 }
 void dequeue(){
-	if(isempty())
+	if(front==-1 || front>rear)
 		printf("Underflow!");
 	else{
 		printf("%d deleted",queue[front++]);
@@ -36,10 +34,10 @@ void dequeue(){
 	//display();
 }
 void enqueue(){
-	if(isfull())
+	if(rear==9)
 		printf("Overflow!");
 	else{
-		if(isempty())
+		if(front==-1 || front>rear)
 			front=0;
 		printf("\nEnter a number:");
 		scanf("%d",&queue[++rear]);
@@ -47,24 +45,13 @@ void enqueue(){
 	//display();
 }
 void display(){
-	if(isempty())printf("No element in stack");
+	if(front==-1 || front>rear)printf("No element in stack");
 	else{
 	printf("\nQueue:");
 	for(int i=front;i<=rear;++i)
 		printf("%d\t",queue[i]);
 }
 
-}
-int isempty(){
-	if(front==-1 || front>rear)
-		return 1;
-	return 0;
-}	
-int isfull(){
-	if(rear==9)
-		return 1;
-	return 0;
-}	
 			
-
+}
 			
