@@ -182,9 +182,10 @@
 		return 0;
 	}
 	void display(){
+		struct node *curr;
 		printf("\nElements:");
-		for(cur=head;cur!=NULL;cur=cur->next)
-			printf("\t%d",cur->data);	
+		for(curr=head;curr!=NULL;curr=curr->next)
+			printf("\t%d",curr->data);	
 	}
 	int count(){
 		int i;
