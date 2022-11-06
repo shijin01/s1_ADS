@@ -10,7 +10,7 @@
 	void delete_at_end();
 	void delete_at_pos();
 	void createnode(int data);
-	void createll();
+	void create_linkedlist();
 	void insert_at_beginning();
 	void insert_at_end();
 	void insert_at_pos();
@@ -22,7 +22,7 @@
 			printf("\nEnter Choice:");
 			scanf("%d",&choice1);
 			switch(choice1){
-				case 1:createll();
+				case 1:create_linkedlist();
 						break;
 				case 2:printf("Enter the data:");
 					scanf("%d",&data);
@@ -70,7 +70,7 @@
 		newnode->data=data;
 		newnode->next=NULL;
 	}
-	void createll(){
+	void create_linkedlist(){
 		int n,d,i;
 		printf("Enter the number of elements:");
 		scanf("%d",&n);
