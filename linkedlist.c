@@ -17,8 +17,9 @@
 	void display();
 	void main(){
 		int choice1,data,choice2,s;
+		printf("\nMENU:-\n\t1.Create linked list\n\t2.Insertion\n\t3.Deletion\n\t4.Display\n\t5.Count\n\t6.Search\n\t7.Exit");
 		while(1){
-			printf("\nMENU:-\n\t1.Create linked list\n\t2.Insertion\n\t3.Deletion\n\t4.Display\n\t5.Count\n\t6.Search\n\t7.Exit\nEnter Choice:");
+			printf("\nEnter Choice:");
 			scanf("%d",&choice1);
 			switch(choice1){
 				case 1:createll();
@@ -26,7 +27,7 @@
 				case 2:printf("Enter the data:");
 					scanf("%d",&data);
 					createnode(data);
-					printf("\n\tMENU.2:-\n\t\t1.Insert at begin\n\t\t2.Insert at end\n\t\t3.Insert after nth node\nEnter Choice:");
+					printf("\n\tMENU.2:-\n\t\t1.Insert at begin\n\t\t2.Insert at end\n\t\t3.Insert after nth node\n\tEnter Choice:");
 					scanf("%d",&choice2);
 					switch(choice2){
 						case 1:insert_at_beginning();
@@ -38,7 +39,7 @@
 						default:printf("Invalid operation");
 					}
 					break;
-				case 3:printf("\n\tMENU.3:-\n\t\t1.Deletion at begin\n\t\t2.Deletion at end\n\t\t3.Deletion at position\nEnter Choice:");
+				case 3:printf("\n\tMENU.3:-\n\t\t1.Deletion at begin\n\t\t2.Deletion at end\n\t\t3.Deletion at position\n\tEnter Choice:");
 					scanf("%d",&choice2);
 					switch(choice2){
 						case 1:delete_at_beginning();
@@ -64,106 +65,10 @@
 			}
 		}
 	}
-	void delete_at_beginning(){
-		struct node *t;
-		t=head;
-		if(head==NULL){
-			printf("Linked List is empty");
-		}
-		else{
-			head=head->next;
-			free(t);
-		}
-
-	}
-	void delete_at_end(){
-		struct node *t,*pre;
-		if(head==NULL){
-			printf("Linked List is empty");
-		}
-		else{
-			for(cur=head;cur->next!=NULL;pre=cur,cur=cur->next);
-			t=cur;
-			pre->next=NULL;
-			free(t);
-		}
-		
-	}
-	void delete_at_pos(){
-		int pos,c,i;
-		struct node *pre,*t;
-		if(head==NULL){
-			printf("Linked List is empty");
-		}
-		else{
-		printf("\nEnter the position:");
-		scanf("%d",&pos);
-		c=count();
-		if(pos>c){
-			printf("Invalid position");
-		}
-		else{
-			for(i=1,cur=head;i<pos;++i,pre=cur,cur=cur->next);
-			t=pre->next;
-			pre->next=cur->next;
-			free(t);
-		}
-		}
-
-
-
-	}
 	void createnode(int data){
 		newnode=(struct node*)malloc(sizeof(struct node));
 		newnode->data=data;
 		newnode->next=NULL;
-	}
-	void insert_at_beginning(){
-		if(head==NULL){
-			newnode->next=NULL;
-			head=newnode;
-
-		}
-		else{
-			newnode->next=head;
-			head=newnode;
-		}
-        }
-	void insert_at_end(){
-		for(cur=head;cur->next!=NULL;cur=cur->next);
-		cur->next=newnode;
-	}
-	void display(){
-		printf("\nElements:");
-		for(cur=head;cur!=NULL;cur=cur->next)
-			printf("\t%d",cur->data);	
-	}
-	int count(){
-		int i;
-		for(i=0,cur=head;cur!=NULL;++i,cur=cur->next);
-		return i;
-	}
-	void insert_at_pos(){
-		int pos,c,i;
-		struct node *pre;
-		printf("\nEnter the position:");
-		scanf("%d",&pos);
-		c=count();
-		if(pos>c){
-			printf("Invalid position");
-		}
-		else{
-			for(i=1,cur=head;i<pos;++i,pre=cur,cur=cur->next);
-			newnode->next=pre->next;
-			pre->next=newnode;
-		}
-	}
-	int search(int data){
-		int i;
-		for(i=1,cur=head;cur!=NULL;++i,cur=cur->next)
-			if(cur->data==data)
-				return i;
-		return 0;
 	}
 	void createll(){
 		int n,d,i;
@@ -185,4 +90,105 @@
 		}
 
 		}
-	
+	void insert_at_beginning(){
+		if(head==NULL){
+			newnode->next=NULL;
+			head=newnode;
+
+		}
+		else{
+			newnode->next=head;
+			head=newnode;
+		}
+        }
+	void insert_at_end(){
+		struct node *curr;
+		for(curr=head;curr->next!=NULL;curr=curr->next);
+		curr->next=newnode;
+	}
+	void insert_at_pos(){
+		int pos,c,i;
+		struct node *pre,*curr;
+		printf("\nEnter the position:");
+		scanf("%d",&pos);
+		c=count();
+		if(pos>c){
+			printf("Invalid position");
+		}
+		else{
+			for(i=1,curr=head;i<pos;++i,pre=curr,curr=curr->next);
+			newnode->next=pre->next;
+			pre->next=newnode;
+		}
+	}
+	void delete_at_beginning(){
+		struct node *t;
+		t=head;
+		if(head==NULL){
+			printf("Linked List is empty");
+		}
+		else{
+			head=head->next;
+			printf("%d deleted",t->data);
+			free(t);
+		}
+
+	}
+	void delete_at_end(){
+		struct node *t,*pre,*curr;
+		if(head==NULL){
+			printf("Linked List is empty");
+		}
+		else{
+			for(curr=head;curr->next!=NULL;pre=curr,curr=curr->next);
+			t=curr;
+			pre->next=NULL;
+			printf("%d deleted",t->data);
+			free(t);
+		}
+		
+	}
+	void delete_at_pos(){
+		int pos,c,i;
+		struct node *pre,*t,*curr;
+		if(head==NULL){
+			printf("Linked List is empty");
+		}
+		else{
+		printf("\nEnter the position:");
+		scanf("%d",&pos);
+		c=count();
+		if(pos>c){
+			printf("Invalid position");
+		}
+		else{
+			for(i=1,curr=head;i<pos;++i,pre=curr,curr=curr->next);
+			t=pre->next;
+			pre->next=curr->next;
+			printf("%d deleted",t->data);
+			free(t);
+		}
+		}
+
+
+
+	}
+	int search(int data){
+		int i;
+		struct node *curr;
+		for(i=1,curr=head;curr!=NULL;++i,curr=curr->next)
+			if(curr->data==data)
+				return i;
+		return 0;
+	}
+	void display(){
+		printf("\nElements:");
+		for(cur=head;cur!=NULL;cur=cur->next)
+			printf("\t%d",cur->data);	
+	}
+	int count(){
+		int i;
+		struct node *curr;
+		for(i=0,curr=head;curr!=NULL;++i,curr=curr->next);
+		return i;
+	}
