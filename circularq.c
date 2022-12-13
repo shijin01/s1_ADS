@@ -49,7 +49,7 @@ void enqueue(){
     }
 }
 void dequeue(){
-    struct node *t;
+    struct node *t,*curr;
     if(front==NULL){
         printf("\nUnderflow!");
     }
@@ -59,20 +59,22 @@ void dequeue(){
 	if(front->next==front)
 		front=NULL;
         else{
+		for(curr=front;curr->next!=front;curr=curr->next);
+		curr->next=front->next;
 		front=front->next;
         	free(t);
 	}
     }
 }
 void display(){
-    struct node *cur;
+    struct node *curr;
     if(front==NULL)
         printf("\nNo elements");
     else{
 	printf("\nElements:");
-        for(cur=front;cur->next!=front;cur=cur->next)
-            printf("%d\t",cur->data);
-	printf("%d\t",cur->data);
+        for(curr=front;curr->next!=front;curr=curr->next)
+            printf("%d\t",curr->data);
+	printf("%d\t",curr->data);
     }
     
 }
