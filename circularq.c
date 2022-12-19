@@ -60,21 +60,22 @@ void dequeue(){
 		front=NULL;
         else{
 		for(curr=front;curr->next!=front;curr=curr->next);
-		curr->next=front->next;
+		
 		front=front->next;
+		curr->next=front;
         	free(t);
 	}
     }
 }
 void display(){
-    struct node *curr;
+    struct node *cur;
     if(front==NULL)
         printf("\nNo elements");
     else{
 	printf("\nElements:");
-        for(curr=front;curr->next!=front;curr=curr->next)
-            printf("%d\t",curr->data);
-	printf("%d\t",curr->data);
+        for(cur=front;cur->next!=front;cur=cur->next)
+            printf("%d\t",cur->data);
+	printf("%d\t",cur->data);
     }
     
 }
